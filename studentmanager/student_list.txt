@@ -1,0 +1,1 @@
+Student Code : 111 , Name: khuyen , Gender: female , Math Score: 8.5

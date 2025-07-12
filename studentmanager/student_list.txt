@@ -1,1 +1,4 @@
-Student Code : 111 , Name: khuyen , Gender: female , Math Score: 8.5
+Student Code : 856 , Name: Lan , Gender: female , Age : 19 , Math Score: 10.0
+Student Code : 123 , Name: Kha , Gender: male , Age : 18 , Math Score: 9.0
+Student Code : 456 , Name: Khue , Gender: male , Age : 25 , Math Score: 8.8
+Student Code : 111 , Name: Khuyen , Gender: female , Age : 20 , Math Score: 8.5

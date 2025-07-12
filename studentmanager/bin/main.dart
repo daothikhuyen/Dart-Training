@@ -1,9 +1,4 @@
-import 'package:studentmanager/studen_service.dart' as studentmanager;
-import 'package:studentmanager/studen_service.dart';
-import 'dart:io';
-
-import 'package:studentmanager/student_model.dart';
-
+import 'package:studentmanager/models/models.dart';
 Future<void> main(List<String> arguments) async {
   final service = StudenService();
 
@@ -16,6 +11,8 @@ Future<void> main(List<String> arguments) async {
     print('3. Delete student');
     print('4. Update student');
     print('5. Save student list to file');
+    print('6. Sort student by match score');
+    print('7. Search student by name');
     print('0. Logout');
     print('Enter your selection: ');
 
@@ -38,6 +35,16 @@ Future<void> main(List<String> arguments) async {
       case "5":
         print('Save student information to .txt file');
         await service.saveFile();
+      case "6":
+        print('Sort student by math score');
+        service.sortByScore();
+        break;
+      case "7":
+        print("Enter student name to search:");
+        String name = stdin.readLineSync()!;
+        print('Search results:');
+        print(service.searchByName(name));
+        break;
       case "0":
         print('Exit the program');
         return;

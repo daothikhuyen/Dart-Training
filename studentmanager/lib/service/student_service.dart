@@ -1,8 +1,34 @@
-import 'package:studentmanager/student_model.dart';
+import 'package:studentmanager/models/student.dart';
 import 'dart:io';
 
 class StudenService {
   Map<int, Student> _studentList = {};
+
+//Input student information
+    Student inputStudent() {
+    while (true) {
+      try {
+        print('Enter student code: ');
+        int id = int.parse(stdin.readLineSync()!);
+        print('Enter name: ');
+        String name = stdin.readLineSync()!;
+        print('Enter gender');
+        String gender = stdin.readLineSync()!;
+        print('Enter age');
+        int age = int.parse(stdin.readLineSync()!);
+        print('Enter math score');
+        double mathScore = double.parse(stdin.readLineSync()!);
+
+        if (name.isEmpty || gender.isEmpty) {
+          print('Please do not leave blank');
+        } else {
+          return Student( studentId: id,name: name,gender: gender,age: age,mathScore: mathScore);
+        }
+      } on FormatException{
+        print('Please enter in the correct format');
+      }
+    }
+  }
 
   void addStudent(Student student) {
     if (_studentList[student.studentId] != null) {
@@ -41,32 +67,28 @@ class StudenService {
     }
   }
 
-  Student inputStudent() {
-    while (true) {
-      try {
-        print('Enter student code: ');
-        int id = int.parse(stdin.readLineSync()!);
-        print('Enter name: ');
-        String name = stdin.readLineSync()!;
-        print('Enter gender');
-        String gender = stdin.readLineSync()!;
-        print('Enter math score');
-        double mathScore = double.parse(stdin.readLineSync()!);
+  void sortByScore(){
 
-        if (name.isEmpty || gender.isEmpty) {
-          print('Please do not leave blank');
-        } else {
-          return Student(
-            studentId: id,
-            name: name,
-            gender: gender,
-            mathScore: mathScore,
-          );
-        }
-      } catch (e) {
-        print('Please enter in the correct format');
+    var sortedEntries = _studentList.entries.toList()..sort(((a,b) => b.value.mathScore.compareTo(a.value.mathScore)));
+
+    Map<int,Student> sortedMap = {};
+    for(var i in sortedEntries){
+      sortedMap[i.key] = i.value;
+    }
+
+    _studentList = sortedMap;
+    showStudents();
+    
+  }
+
+  String searchByName(String name){
+    for(var i in _studentList.entries){
+      if(i.value.name == name){
+        return i.value.toString();
       }
     }
+    
+    return "Student not found";
   }
 
   // Save student list to file .txt
@@ -111,11 +133,12 @@ class StudenService {
         int id = int.parse(line.split(',')[0].split(':')[1].trim());
         String name = line.split(',')[1].split(":")[1].trim();
         String gender = line.split(',')[2].split(':')[1].trim();
+        int age = int.parse(line.split(',')[3].split(':')[1].trim());
         double mathScore = double.parse(
-          line.split(',')[3].split(':')[1].trim(),
+          line.split(',')[4].split(':')[1].trim(),
         );
 
-        Student student = Student(studentId: id,name: name,gender: gender,mathScore: mathScore);
+        Student student = Student(studentId: id,name: name,gender: gender,age: age,mathScore: mathScore);
         _studentList[id] = student;
       }
 

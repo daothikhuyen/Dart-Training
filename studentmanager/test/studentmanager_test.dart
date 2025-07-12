@@ -1,4 +1,4 @@
-import 'package:studentmanager/studen_service.dart';
+import 'package:studentmanager/service/student_service.dart';
 import 'package:test/test.dart';
 
 void main() {

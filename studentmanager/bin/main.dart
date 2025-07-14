@@ -7,6 +7,7 @@ Future<void> main(List<String> arguments) async {
   final teacherService = TeacherService();
 
   // await service.readfile();
+  // await studentService.readFile('student_list.json');
 
   while (true) {
     print('========MENU=========');
@@ -25,9 +26,9 @@ Future<void> main(List<String> arguments) async {
       case "1":
         final choice2 = selectPersonType('Add');
         if (choice2 == "1") {
-          studentService.add(studentService.inputStudent());
+          studentService.add();
         } else {
-          teacherService.add(teacherService.inputTeacher());
+          teacherService.add();
         }
         break;
       case "2":
@@ -58,36 +59,35 @@ Future<void> main(List<String> arguments) async {
       case "4":
         final choice2 = selectPersonType('Update');
         if (choice2 == "1") {
-          studentService.update(studentService.inputStudent());
+          studentService.update();
         } else {
-          teacherService.update(teacherService.inputTeacher());
+          teacherService.update();
         }
 
         break;
       case "5":
-        print('Save information to .txt file');
+        print('Save information to .json file');
         final choice2 = selectPersonType('Save the list:');
         if (choice2 == "1") {
           await studentService.saveFile(
-            "student_list.txt",
+            "student_list.json",
             studentService.itemsMap,
           );
         } else {
           await teacherService.saveFile(
-            "teacher_list.txt",
+            "teacher_list.json",
             teacherService.itemsMap,
           );
         }
         break;
       case "6":
         print('Sort student by math score');
-        // service.sortByScore();
+        studentService.sortByScore();
         break;
       case "7":
         print("Enter student name to search:");
-        // String name = stdin.readLineSync()!;
-        // print('Search results:');
-        // print(service.searchByName(name));
+        print('Search results:');
+        // print(studentService.s(name));
         break;
       case "0":
         print('Exit the program');

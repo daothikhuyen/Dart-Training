@@ -1,28 +1,30 @@
-import 'package:studentmanager/models/student.dart';
 import 'dart:io';
+import 'package:studentmanager/service/person_manager.dart';
+import 'package:studentmanager/models/student.dart';
 
-class StudenService {
-  Map<int, Student> _studentList = {};
+class StudentService extends PersonManager<Student>{
+  final Map<int, Student> _studentMap = {};
 
-//Input student information
-    Student inputStudent() {
+  @override
+  // ignore: unnecessary_overrides
+  Map<String, dynamic> inputPerson() {
+    return super.inputPerson();
+  }
+  
+// Enter student information
+  Student inputStudent() {
     while (true) {
       try {
-        print('Enter student code: ');
-        int id = int.parse(stdin.readLineSync()!);
-        print('Enter name: ');
-        String name = stdin.readLineSync()!;
-        print('Enter gender');
-        String gender = stdin.readLineSync()!;
-        print('Enter age');
-        int age = int.parse(stdin.readLineSync()!);
+        var data = inputPerson();
+        print('Enter name class');
+        String nameClass = stdin.readLineSync()!;
         print('Enter math score');
         double mathScore = double.parse(stdin.readLineSync()!);
 
-        if (name.isEmpty || gender.isEmpty) {
-          print('Please do not leave blank');
-        } else {
-          return Student( studentId: id,name: name,gender: gender,age: age,mathScore: mathScore);
+        if(mathScore < 0 || mathScore > 10){
+          print('Please enter a valid math score ( 0-10)');
+        }else{
+          return Student( id: data['id'],name: data['name'],gender: data['gender'],age: data['age'],nameClass: nameClass, mathScore: mathScore);
         }
       } on FormatException{
         print('Please enter in the correct format');
@@ -30,120 +32,50 @@ class StudenService {
     }
   }
 
-  void addStudent(Student student) {
-    if (_studentList[student.studentId] != null) {
+  @override
+  void add(Student student) {
+    if (_studentMap[student.id] != null) {
       print('Students already exist');
-    } else {
-      _studentList[student.studentId] = student;
-      print('successfully added list');
+      return;
     }
+
+    _studentMap[student.id!] = student;
+    print('successfully added list');
   }
 
-  void showStudents() {
-    if (_studentList.isEmpty) {
+  @override
+  void showPerson() {
+    if (_studentMap.isEmpty) {
       print('No students yet');
     } else {
-      _studentList.forEach((id, student) {
+      print('-------------------Student List--------------------');
+      print('Id     Name      Age     Gender     Math Score');
+      _studentMap.forEach((id, student) {
         print(student.toString());
       });
+      print('---------------------------------------------------');
     }
   }
 
-  void deleteStudent(int id) {
-    if (!_studentList.containsKey(id)) {
+  @override
+  void update(Student student) {
+    if (!_studentMap.containsKey(student.id)) {
       print('Student does not exist');
     } else {
-      _studentList.remove(id);
-      print('Student deleted successfully');
-    }
-  }
-
-  void updateStudent(Student student) {
-    if (!_studentList.containsKey(student.studentId)) {
-      print('Student does not exist');
-    } else {
-      _studentList[student.studentId] = student;
+      _studentMap[student.id!] = student;
       print('Updated successfully');
     }
   }
 
-  void sortByScore(){
-
-    var sortedEntries = _studentList.entries.toList()..sort(((a,b) => b.value.mathScore.compareTo(a.value.mathScore)));
-
-    Map<int,Student> sortedMap = {};
-    for(var i in sortedEntries){
-      sortedMap[i.key] = i.value;
-    }
-
-    _studentList = sortedMap;
-    showStudents();
-    
+  @override
+  void delete(int id, Map<int, Student> personList) {
+    super.delete(id, _studentMap);
   }
 
-  String searchByName(String name){
-    for(var i in _studentList.entries){
-      if(i.value.name == name){
-        return i.value.toString();
-      }
-    }
-    
-    return "Student not found";
+  @override
+  Future<void> saveFile(String path, Map<int, Student> itemsMap) {
+    return super.saveFile(path, _studentMap);
   }
+  
 
-  // Save student list to file .txt
-  Future<void> saveFile() async {
-    try {
-      String path = "student_list.txt";
-
-      var file = File(path);
-
-      if (!await file.exists()) {
-        await file.create(recursive: true);
-      }
-
-      var sink = file.openWrite(mode: FileMode.write);
-      _studentList.forEach((id, student) {
-        sink.writeln(student.toString());
-      });
-
-      print('Information saved successfully');
-
-      await sink.flush();
-      await sink.close();
-    } catch (e) {
-      print('Error save file: $e');
-    }
-  }
-
-  // Read student list from file .txt to map
-  Future readfile() async {
-    try {
-      String path = "student_list.txt";
-      var file = File(path);
-      if (!await file.exists()) {
-        print('File does not exist');
-        return;
-      }
-      var contents = await file.readAsLines();
-
-      if(contents.isEmpty) return;
-
-      for (var line in contents) {
-        int id = int.parse(line.split(',')[0].split(':')[1].trim());
-        String name = line.split(',')[1].split(":")[1].trim();
-        String gender = line.split(',')[2].split(':')[1].trim();
-        int age = int.parse(line.split(',')[3].split(':')[1].trim());
-        double mathScore = double.parse(
-          line.split(',')[4].split(':')[1].trim(),
-        );
-
-        Student student = Student(studentId: id,name: name,gender: gender,age: age,mathScore: mathScore);
-        _studentList[id] = student;
-      }
-
-    } catch (e) {
-      print('Error read file: $e');
-    }
-  }
 }

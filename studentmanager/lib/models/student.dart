@@ -1,22 +1,15 @@
-import 'dart:io';
 import 'package:studentmanager/models/person.dart';
+import 'dart:io';
 
-class Student extends Person {
-  int studentId;
-  double mathScore;
+class Student extends Person{
+  double? mathScore;
+  String? nameClass;
 
-  Student({
-    required this.studentId,
-    required this.mathScore,
-    required super.name,
-    required super.gender,
-    required super.age,
-  });
+  Student({this.nameClass,this.mathScore,super.name,super.gender,super.age,super.id});
 
   @override
   String toString() {
-    return 'Student Code : $studentId , '+
-          'Name: $name , Gender: $gender , ' +
-          'Age : $age , Math Score: $mathScore';
+    return '$id    $name      $age     $gender     $mathScore';
   }
+  
 }

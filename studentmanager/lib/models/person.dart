@@ -1,12 +1,16 @@
-
-abstract class Person {
-  String name;
-  String gender;
-  int age;
+import 'dart:io';
+class Person {
+  int? id;
+  String? name;
+  String? gender;
+  int? age;
+  String ? address;
 
   Person({
-    required this.name, 
-    required this.gender, 
-    required this.age
+    this.id,
+    this.name, 
+    this.gender, 
+    this.age,
   });
+
 }

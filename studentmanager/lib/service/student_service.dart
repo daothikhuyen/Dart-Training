@@ -4,6 +4,7 @@ import 'package:studentmanager/models/student.dart';
 
 class StudentService extends PersonManager<Student>{
   Map<int, Student> _studentMap = {};
+  Map<String, dynamic> _json = {};
 
   @override
   void add() {
@@ -54,7 +55,6 @@ class StudentService extends PersonManager<Student>{
     return super.saveFile(path, _studentMap);
   }
   
-  @override
   void sortByScore() {
     var sortedEntries = _studentMap.entries.toList()..sort(((a,b) => b.value.mathScore!.compareTo(a.value.mathScore!)));
 
@@ -65,6 +65,21 @@ class StudentService extends PersonManager<Student>{
 
     _studentMap = sortedMap;
     showPerson();
+  }
+
+  @override
+  void searchByName(String name, Map<int, Student> personMap) {
+    super.searchByName(name, _studentMap);
+  }
+  
+  @override
+  Student fromJson(Map<String, dynamic> json) {
+    return Student.fromJson(json);
+  }
+
+  @override
+  Future readFile(String path, Map<int, Student> personMap) {
+    return super.readFile(path, _studentMap);
   }
   
 

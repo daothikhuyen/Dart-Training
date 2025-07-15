@@ -5,14 +5,13 @@ import 'package:studentmanager/interface/json_serializable.dart';
 
 abstract class PersonManager<T extends JsonSerializable> {
   Map<int, T> itemsMap = {};
+  Map<String, dynamic> json ={};
 
   void add();
 
   void showPerson();
 
   void update();
-
-  void sortByScore();
 
   void delete(int id, Map<int, T> personMap) {
     if (personMap.containsKey(id)) {
@@ -33,9 +32,9 @@ abstract class PersonManager<T extends JsonSerializable> {
         }).toList();
 
     if (results.isEmpty) {
-      print('🔍 No person found with name containing "$name".');
+      print('No person found with name containing "$name".');
     } else {
-      print('🔍 Found ${results.length} result(s):');
+      print('Found ${results.length} result(s):');
       for (var person in results) {
         print(person);
       }
@@ -61,6 +60,8 @@ abstract class PersonManager<T extends JsonSerializable> {
     }
   }
 
+  T fromJson(Map<String,dynamic> person);
+
   Future readFile(String path, Map<int, T> personMap) async {
     try {
       var file = File(path);
@@ -71,8 +72,17 @@ abstract class PersonManager<T extends JsonSerializable> {
       }
 
       var contents = await file.readAsString();
-      personMap = jsonDecode(contents);
-      // personMap.values.map((item) => item)
+      List<dynamic> jsonList = jsonDecode(contents);
+
+      for (var item in jsonList) {
+        if (item is Map<String, dynamic>) {
+          print(item);
+          T person = fromJson(item);
+          int id = item['id'];
+          personMap[id] = person;
+        }
+      }
+
     } catch (e) {
       print('Error read file: $e');
     }

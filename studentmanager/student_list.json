@@ -1,6 +1,14 @@
 [
  {
-  "id": 112,
+  "id": 123,
+  "name": "Kha",
+  "age": 17,
+  "gender": "male",
+  "nameClass": "12/1",
+  "mathScore": 9.0
+ },
+ {
+  "id": 111,
   "name": "Khuyen",
   "age": 20,
   "gender": "female",

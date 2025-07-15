@@ -52,13 +52,13 @@ class Teacher extends Person implements JsonSerializable {
 
   @override
   Map<String, dynamic> toJson() => {
-    'id :': id,
-    'name :': name,
-    'age :': age,
+    'id': id,
+    'name': name,
+    'age': age,
     'gender': gender,
-    'number phone :': numberPhone,
-    'experence:': experience,
-    'Student taught' : studentTaught
+    'numberPhone': numberPhone,
+    'experience': experience,
+    'studentTaught' : studentTaught
   };
 
     @override

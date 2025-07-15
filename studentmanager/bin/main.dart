@@ -6,8 +6,8 @@ Future<void> main(List<String> arguments) async {
   final studentService = StudentService();
   final teacherService = TeacherService();
 
-  // await service.readfile();
-  // await studentService.readFile('student_list.json');
+  await studentService.readFile('student_list.json', studentService.itemsMap);
+  await teacherService.readFile('teacher_list.json', teacherService.itemsMap);
 
   while (true) {
     print('========MENU=========');
@@ -86,7 +86,15 @@ Future<void> main(List<String> arguments) async {
         break;
       case "7":
         print("Enter student name to search:");
-        print('Search results:');
+        String name = stdin.readLineSync()!;
+        final choice2 = selectPersonType('Search');
+        if(choice2 == 1){
+          studentService.searchByName(name, studentService.itemsMap);
+        }else{
+          teacherService.searchByName(name, teacherService.itemsMap);
+        }
+
+        
         // print(studentService.s(name));
         break;
       case "0":

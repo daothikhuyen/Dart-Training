@@ -59,5 +59,20 @@ class TeacherService extends PersonManager<Teacher>{
   void sortByScore() {
     // TODO: implement sortByScore
   }
+
+  @override
+  void searchByName(String name, Map<int, Teacher> personMap) {
+    super.searchByName(name, _teacherMap);
+  }
+  
+  @override
+  Teacher fromJson(Map<String, dynamic> json) {
+    throw Teacher.fromJson(json);
+  }
+
+  @override
+  Future readFile(String path, Map<int, Teacher> personMap) {
+    return super.readFile(path, _teacherMap);
+  }
   
 }

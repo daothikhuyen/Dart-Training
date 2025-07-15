@@ -1,15 +1,15 @@
-import 'dart:io';
 import 'package:studentmanager/service/person_service.dart';
 import 'package:studentmanager/models/student.dart';
 
-class StudentService extends PersonManager<Student>{
+class StudentService extends PersonManager<Student> {
   Map<int, Student> _studentMap = {};
-  Map<String, dynamic> _json = {};
 
   @override
   void add() {
     Student student = Student();
     student.input();
+    student.averageScore = student.calculateAverageScore();
+    
     if (_studentMap[student.id] != null) {
       print('Students already exist');
       return;
@@ -25,7 +25,7 @@ class StudentService extends PersonManager<Student>{
       print('No students yet');
     } else {
       print('-------------------Student List--------------------');
-      print('Id     Name      Age     Gender     Math Score');
+      print('Id     Name            Age     Gender     Class       Attendance Score      Midterm Score       Final Score      Average Score');
       _studentMap.forEach((id, student) {
         print(student.toString());
       });
@@ -46,7 +46,7 @@ class StudentService extends PersonManager<Student>{
   }
 
   @override
-  void delete(int id, Map<int, Student> personList) {
+  void delete(int id, Map<int, Student> personMap) {
     super.delete(id, _studentMap);
   }
 
@@ -54,24 +54,37 @@ class StudentService extends PersonManager<Student>{
   Future<void> saveFile(String path, Map<int, Student> itemsMap) {
     return super.saveFile(path, _studentMap);
   }
-  
-  void sortByScore() {
-    var sortedEntries = _studentMap.entries.toList()..sort(((a,b) => b.value.mathScore!.compareTo(a.value.mathScore!)));
 
-    Map<int,Student> sortedMap = {};
-    for(var i in sortedEntries){
+  void sortByScore() {
+    var sortedEntries =
+        _studentMap.entries.toList()
+          ..sort(((a, b) => b.value.averageScore!.compareTo(a.value.averageScore!)));
+
+    Map<int, Student> sortedMap = {};
+    for (var i in sortedEntries) {
       sortedMap[i.key] = i.value;
     }
 
     _studentMap = sortedMap;
-    showPerson();
+  }
+
+
+  void goodStudent() {
+    sortByScore();
+
+    print('------------Good Student----------------');
+    for (var student in _studentMap.values) {
+      if (student.averageScore! >= 8.5) {
+        print("${student.name} - ${student.averageScore}");
+      }
+    }
   }
 
   @override
   void searchByName(String name, Map<int, Student> personMap) {
     super.searchByName(name, _studentMap);
   }
-  
+
   @override
   Student fromJson(Map<String, dynamic> json) {
     return Student.fromJson(json);
@@ -81,6 +94,4 @@ class StudentService extends PersonManager<Student>{
   Future readFile(String path, Map<int, Student> personMap) {
     return super.readFile(path, _studentMap);
   }
-  
-
 }

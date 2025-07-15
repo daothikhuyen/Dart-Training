@@ -1,6 +1,4 @@
 import 'package:studentmanager/models/models.dart';
-import 'package:studentmanager/service/student_service.dart';
-import 'package:studentmanager/service/teacher_service.dart';
 
 Future<void> main(List<String> arguments) async {
   final studentService = StudentService();
@@ -15,9 +13,10 @@ Future<void> main(List<String> arguments) async {
     print('2. Person list');
     print('3. Delete student');
     print('4. Update student');
-    print('5. Save student list to file');
-    print('6. Sort student by match score');
-    print('7. Search student by name');
+    print('5. Save person list to file');
+    print('6. Sort student by average score');
+    print('7. Search person by name');
+    print('8. Show good student');
     print('0. Logout');
     print('Enter your selection: ');
 
@@ -83,20 +82,20 @@ Future<void> main(List<String> arguments) async {
       case "6":
         print('Sort student by math score');
         studentService.sortByScore();
+        studentService.showPerson();
         break;
       case "7":
         print("Enter student name to search:");
         String name = stdin.readLineSync()!;
         final choice2 = selectPersonType('Search');
-        if(choice2 == 1){
+        if(choice2 == "1"){
           studentService.searchByName(name, studentService.itemsMap);
         }else{
           teacherService.searchByName(name, teacherService.itemsMap);
         }
-
-        
-        // print(studentService.s(name));
         break;
+      case "8":
+        studentService.goodStudent();
       case "0":
         print('Exit the program');
         return;
@@ -108,7 +107,7 @@ Future<void> main(List<String> arguments) async {
 
 String? selectPersonType(String action) {
   print(
-    '--------------------------\n'
+    '-----------Menu---------------\n'
     '1. $action Student\n'
     '2. $action Teacher',
   );

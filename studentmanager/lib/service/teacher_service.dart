@@ -1,11 +1,10 @@
-import 'dart:io';
 import 'package:studentmanager/service/person_service.dart';
 import 'package:studentmanager/models/teacher.dart';
 
-class TeacherService extends PersonManager<Teacher>{
+class TeacherService extends PersonManager<Teacher> {
   final Map<int, Teacher> _teacherMap = {};
 
-// Add teacher to list
+  // Add teacher to list
   @override
   void add() {
     Teacher teacher = Teacher();
@@ -19,13 +18,15 @@ class TeacherService extends PersonManager<Teacher>{
     print('successfully added list');
   }
 
-    @override
+  @override
   void showPerson() {
     if (_teacherMap.isEmpty) {
       print('No teacher yet');
     } else {
       print('-------------------Teacher List--------------------');
-      print('Id     Name      Age     Gender     NumberPhone     Experience     StudentTaught');
+      print(
+        'Id     Name          Age     Gender     NumberPhone     Experience     StudentTaught',
+      );
       _teacherMap.forEach((id, student) {
         print(student.toString());
       });
@@ -46,7 +47,7 @@ class TeacherService extends PersonManager<Teacher>{
   }
 
   @override
-  void delete(int id, Map<int, Teacher> personList) {
+  void delete(int id, Map<int, Teacher> personMap) {
     super.delete(id, _teacherMap);
   }
 
@@ -54,25 +55,19 @@ class TeacherService extends PersonManager<Teacher>{
   Future<void> saveFile(String path, Map<int, Teacher> itemsMap) {
     return super.saveFile(path, _teacherMap);
   }
-  
-  @override
-  void sortByScore() {
-    // TODO: implement sortByScore
-  }
 
   @override
   void searchByName(String name, Map<int, Teacher> personMap) {
     super.searchByName(name, _teacherMap);
   }
-  
+
   @override
   Teacher fromJson(Map<String, dynamic> json) {
-    throw Teacher.fromJson(json);
+    return Teacher.fromJson(json);
   }
 
   @override
   Future readFile(String path, Map<int, Teacher> personMap) {
     return super.readFile(path, _teacherMap);
   }
-  
 }

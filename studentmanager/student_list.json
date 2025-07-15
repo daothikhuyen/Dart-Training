@@ -2,17 +2,23 @@
  {
   "id": 123,
   "name": "Kha",
-  "age": 17,
+  "age": 18,
   "gender": "male",
   "nameClass": "12/1",
-  "mathScore": 9.0
+  "attendanceScore": 10.0,
+  "midtermScore": 9.0,
+  "finalScore": 8.5,
+  "averageScore": 8.9
  },
  {
   "id": 111,
-  "name": "Khuyen",
+  "name": "Khuy",
   "age": 20,
   "gender": "female",
   "nameClass": "22SE1B",
-  "mathScore": 8.5
+  "attendanceScore": 10.0,
+  "midtermScore": 8.5,
+  "finalScore": 8.0,
+  "averageScore": 8.5
  }
 ]

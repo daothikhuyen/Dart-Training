@@ -5,7 +5,6 @@ import 'package:studentmanager/interface/json_serializable.dart';
 
 abstract class PersonManager<T extends JsonSerializable> {
   Map<int, T> itemsMap = {};
-  Map<String, dynamic> json ={};
 
   void add();
 
@@ -60,8 +59,10 @@ abstract class PersonManager<T extends JsonSerializable> {
     }
   }
 
-  T fromJson(Map<String,dynamic> person);
+  //Convert JSON to Person object
+  T fromJson(Map<String, dynamic> person);
 
+  // Read student/teacher list from file .json
   Future readFile(String path, Map<int, T> personMap) async {
     try {
       var file = File(path);
@@ -72,17 +73,18 @@ abstract class PersonManager<T extends JsonSerializable> {
       }
 
       var contents = await file.readAsString();
-      List<dynamic> jsonList = jsonDecode(contents);
 
-      for (var item in jsonList) {
-        if (item is Map<String, dynamic>) {
-          print(item);
-          T person = fromJson(item);
-          int id = item['id'];
-          personMap[id] = person;
+      if (contents.isNotEmpty) {
+        List<dynamic> jsonList = jsonDecode(contents);
+
+        for (var item in jsonList) {
+          if (item is Map<String, dynamic>) {
+            T person = fromJson(item);
+            int id = item['id'];
+            personMap[id] = person;
+          }
         }
       }
-
     } catch (e) {
       print('Error read file: $e');
     }

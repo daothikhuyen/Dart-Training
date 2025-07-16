@@ -1,14 +1,17 @@
+import 'package:studentmanager/helpers/file_helper.dart';
+import 'package:studentmanager/helpers/input_helper.dart';
 import 'package:studentmanager/service/person_service.dart';
 import 'package:studentmanager/models/teacher.dart';
 
-class TeacherService extends PersonManager<Teacher> {
+class TeacherService extends PersonSerive<Teacher> {
   final Map<int, Teacher> _teacherMap = {};
+   final fileHelper = FileHelper();
+   final inputHelper = InputHelper();
 
   // Add teacher to list
   @override
   void add() {
-    Teacher teacher = Teacher();
-    teacher.input();
+    Teacher teacher =  inputHelper.inputTeacher();
     if (_teacherMap[teacher.id] != null) {
       print('Students already exist');
       return;
@@ -36,8 +39,7 @@ class TeacherService extends PersonManager<Teacher> {
 
   @override
   void update() {
-    Teacher teacher = Teacher();
-    teacher.input();
+    Teacher teacher = inputHelper.inputTeacher();
     if (!_teacherMap.containsKey(teacher.id)) {
       print('Student does not exist');
     } else {
@@ -52,22 +54,16 @@ class TeacherService extends PersonManager<Teacher> {
   }
 
   @override
-  Future<void> saveFile(String path, Map<int, Teacher> itemsMap) {
-    return super.saveFile(path, _teacherMap);
-  }
-
-  @override
   void searchByName(String name, Map<int, Teacher> personMap) {
     super.searchByName(name, _teacherMap);
   }
 
-  @override
-  Teacher fromJson(Map<String, dynamic> json) {
-    return Teacher.fromJson(json);
+  Future<void> saveFile(String path) async {
+    await fileHelper.saveFile<Teacher>(path, _teacherMap);
   }
 
-  @override
-  Future readFile(String path, Map<int, Teacher> personMap) {
-    return super.readFile(path, _teacherMap);
+  Future<void> readFile(String path) async {
+    await fileHelper.readFile<Teacher>(path, _teacherMap, (json) => Teacher.fromJson(json));
   }
+
 }

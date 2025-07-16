@@ -1,18 +1,20 @@
+import 'package:studentmanager/helpers/file_helper.dart';
 import 'package:studentmanager/models/models.dart';
+import 'package:studentmanager/models/teacher.dart';
 
 Future<void> main(List<String> arguments) async {
   final studentService = StudentService();
   final teacherService = TeacherService();
 
-  await studentService.readFile('student_list.json', studentService.itemsMap);
-  await teacherService.readFile('teacher_list.json', teacherService.itemsMap);
+  await studentService.readFile('student_list.json');
+  await teacherService.readFile('teacher_list.json');
 
   while (true) {
     print('========MENU=========');
     print('1. Add person');
     print('2. Person list');
-    print('3. Delete student');
-    print('4. Update student');
+    print('3. Delete person');
+    print('4. Update person');
     print('5. Save person list to file');
     print('6. Sort student by average score');
     print('7. Search person by name');
@@ -68,15 +70,9 @@ Future<void> main(List<String> arguments) async {
         print('Save information to .json file');
         final choice2 = selectPersonType('Save the list:');
         if (choice2 == "1") {
-          await studentService.saveFile(
-            "student_list.json",
-            studentService.itemsMap,
-          );
+          await studentService.saveFile('student_list.json');
         } else {
-          await teacherService.saveFile(
-            "teacher_list.json",
-            teacherService.itemsMap,
-          );
+          await teacherService.saveFile("teacher_list.json");
         }
         break;
       case "6":

@@ -1,6 +1,5 @@
 import 'package:studentmanager/interface/json_serializable.dart';
 import 'package:studentmanager/models/person.dart';
-import 'dart:io';
 
 class Teacher extends Person implements JsonSerializable {
   String? numberPhone;
@@ -16,37 +15,6 @@ class Teacher extends Person implements JsonSerializable {
     super.age,
     super.id,
   });
-
-  @override
-  void input() {
-    super.input();
-
-    while (true) {
-      try {
-        print('Enter number phone');
-        numberPhone = stdin.readLineSync()!;
-
-        final RegExp phoneRegExp = RegExp(r'^(?:[+0]9)?[0-9]{10}$');
-        if (!phoneRegExp.hasMatch(numberPhone!)) {
-          print('Please enter a valid phone number (10 digits)');
-          continue;
-        }
-
-        print('Teaching experience(years)');
-        experience = int.parse(stdin.readLineSync()!);
-
-        print('Enter student taught');
-        studentTaught = stdin.readLineSync()!;
-        if (studentTaught!.isEmpty) {
-          print('Please do not leave blank');
-        } else {
-          return;
-        }
-      } on FormatException {
-        print('Please enter in the correct format');
-      }
-    }
-  }
 
   factory Teacher.fromJson(Map<String, dynamic> json) {
     return Teacher(

@@ -1,14 +1,17 @@
+import 'package:studentmanager/helpers/file_helper.dart';
+import 'package:studentmanager/helpers/input_helper.dart';
 import 'package:studentmanager/service/person_service.dart';
 import 'package:studentmanager/models/student.dart';
 
-class StudentService extends PersonManager<Student> {
+class StudentService extends PersonSerive<Student>{
   Map<int, Student> _studentMap = {};
+  final fileHelper = FileHelper();
+  final inputHelper = InputHelper();
 
   @override
   void add() {
-    Student student = Student();
-    student.input();
-    student.averageScore = student.calculateAverageScore();
+    Student student = inputHelper.inputStudent();
+    student.averageScore = calculateAverageScore(student);
     
     if (_studentMap[student.id] != null) {
       print('Students already exist');
@@ -25,7 +28,7 @@ class StudentService extends PersonManager<Student> {
       print('No students yet');
     } else {
       print('-------------------Student List--------------------');
-      print('Id     Name            Age     Gender     Class       Attendance Score      Midterm Score       Final Score      Average Score');
+      print('Id     Name            Age     Gender      Class           Attendance Score      Midterm Score       Final Score      Average Score');
       _studentMap.forEach((id, student) {
         print(student.toString());
       });
@@ -35,8 +38,7 @@ class StudentService extends PersonManager<Student> {
 
   @override
   void update() {
-    Student student = Student();
-    student.input();
+    Student student = inputHelper.inputStudent();
     if (!_studentMap.containsKey(student.id)) {
       print('Student does not exist');
     } else {
@@ -48,11 +50,6 @@ class StudentService extends PersonManager<Student> {
   @override
   void delete(int id, Map<int, Student> personMap) {
     super.delete(id, _studentMap);
-  }
-
-  @override
-  Future<void> saveFile(String path, Map<int, Student> itemsMap) {
-    return super.saveFile(path, _studentMap);
   }
 
   void sortByScore() {
@@ -80,18 +77,20 @@ class StudentService extends PersonManager<Student> {
     }
   }
 
+  double calculateAverageScore(Student student){
+    return ( student.attendanceScore!*0.2 + student.midtermScore!*0.2 + student.finalScore!*0.6);
+  }
+
   @override
   void searchByName(String name, Map<int, Student> personMap) {
     super.searchByName(name, _studentMap);
   }
 
-  @override
-  Student fromJson(Map<String, dynamic> json) {
-    return Student.fromJson(json);
+  Future<void> saveFile(String path) async {
+    await fileHelper.saveFile<Student>(path, _studentMap);
   }
 
-  @override
-  Future readFile(String path, Map<int, Student> personMap) {
-    return super.readFile(path, _studentMap);
+  Future<void> readFile(String path) async {
+    await fileHelper.readFile<Student>(path,_studentMap,(json) => Student.fromJson(json),);
   }
 }

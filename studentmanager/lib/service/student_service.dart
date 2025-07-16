@@ -11,7 +11,7 @@ class StudentService extends PersonSerive<Student>{
   @override
   void add() {
     Student student = inputHelper.inputStudent();
-    student.averageScore = calculateAverageScore(student);
+    student.averageScore = student.calculateAverageScore();
     
     if (_studentMap[student.id] != null) {
       print('Students already exist');
@@ -75,10 +75,6 @@ class StudentService extends PersonSerive<Student>{
         print("${student.name} - ${student.averageScore}");
       }
     }
-  }
-
-  double calculateAverageScore(Student student){
-    return ( student.attendanceScore!*0.2 + student.midtermScore!*0.2 + student.finalScore!*0.6);
   }
 
   @override

@@ -1,6 +1,4 @@
-import 'package:studentmanager/helpers/file_helper.dart';
 import 'package:studentmanager/models/models.dart';
-import 'package:studentmanager/models/teacher.dart';
 
 Future<void> main(List<String> arguments) async {
   final studentService = StudentService();

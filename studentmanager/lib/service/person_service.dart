@@ -20,12 +20,12 @@ abstract class PersonSerive<T extends JsonSerializable> {
   }
 
   void searchByName(String name, Map<int, T> personMap) {
-    final normalizedKeyword = name.toLowerCase();
+    final keyword = name.toLowerCase();
     final results =
         personMap.values.where((person) {
           final json = person.toJson();
           final personName = json['name']?.toString().toLowerCase() ?? '';
-          return personName.contains(normalizedKeyword);
+          return personName.contains(keyword);
         }).toList();
 
     if (results.isEmpty) {

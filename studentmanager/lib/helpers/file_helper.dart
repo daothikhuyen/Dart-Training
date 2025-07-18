@@ -3,8 +3,8 @@ import 'dart:io';
 
 class FileHelper{
 
-  /// Save map of objects to a JSON file
-  Future<void> saveFile<T>(String path, Map<int, T> itemsMap) async {
+  // Save map of objects to a JSON file
+  Future saveFile<T>(String path, Map<int, T> itemsMap) async {
     try {
       final file = File(path);
 
@@ -24,7 +24,7 @@ class FileHelper{
     }
   }
 
-  /// Read list of objects from a JSON file and fill into the provided map
+  // Read list of objects from a JSON file and fill into the provided map
   Future<void> readFile<T>(String path,Map<int, T> targetMap,T Function(Map<String, dynamic>) fromJson) async {
     try {
       final file = File(path);

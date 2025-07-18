@@ -4,8 +4,8 @@ Future<void> main(List<String> arguments) async {
   final studentService = StudentService();
   final teacherService = TeacherService();
 
-  await studentService.readFile('student_list.json');
-  await teacherService.readFile('teacher_list.json');
+  await studentService.readFile('/assets/data/student_list.json');
+  await teacherService.readFile('/assets/data/teacher_list.json');
 
   while (true) {
     print('========MENU=========');

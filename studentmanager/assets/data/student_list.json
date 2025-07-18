@@ -31,5 +31,16 @@
     "midtermScore": 6.0,
     "finalScore": 7.0,
     "averageScore": 7.4
+  },
+  {
+    "id": 116,
+    "name": "hue",
+    "age": 19,
+    "gender": "female",
+    "nameClass": "22IT",
+    "attendanceScore": 10.0,
+    "midtermScore": 7.0,
+    "finalScore": 9.0,
+    "averageScore": 8.8
   }
 ]

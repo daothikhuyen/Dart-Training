@@ -1,6 +1,24 @@
 # Dart - Practice
 
--Topic : **Student Management**
+-Topic : **Student Management**\
+-Timeline: Reading + practice:  2 weeks
+
+## Targets
+- Familiarly with Dart CLI
+- Understanding Dart fundamentals 
+- Understanding basic OOP in Dart
+- Understanding modular or subdivide code via import, export, library
+- Understanding Asynchronous Programming
+- Understanding Null-safety
+
+## Requirements
+ Apply :
+- Object-Oriented Programming (OOP)
+- Null-Safety in Dart
+- Asynchronous Programming: async & await
+- Error Handling with Futures and Try-Catch
+- Code Style and Best Practices
+
 
 ## Fuction
 
@@ -15,8 +33,8 @@
     9. Read student/teacher list from file and save to map
 
 ## EDITOR
-
 - Visual studio code
+- Language: **Dart (v3.7.0)** 
 
 ## INSTALLATION
 

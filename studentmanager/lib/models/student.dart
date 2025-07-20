@@ -54,7 +54,7 @@ class Student extends Person implements JsonSerializable {
 
   @override
   String toString() {
-    return '$id    $name            $age        $gender       $nameClass                  $attendanceScore                $midtermScore             $finalScore                  $averageScore';
+    return '$id    $name      $age        $gender       $nameClass              $attendanceScore                $midtermScore             $finalScore                  $averageScore';
   }
 }
 

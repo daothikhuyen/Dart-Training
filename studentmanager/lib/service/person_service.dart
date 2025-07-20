@@ -13,7 +13,7 @@ abstract class PersonSerive<T extends JsonSerializable> {
   void delete(int id, Map<int, T> personMap) {
     if (personMap.containsKey(id)) {
       personMap.remove(id);
-      print('Student deleted successfully');
+      print('Student deleted successfully ');
     } else {
       print('Student does not exist');
     }

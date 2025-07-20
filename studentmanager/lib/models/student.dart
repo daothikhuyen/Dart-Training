@@ -49,12 +49,12 @@ class Student extends Person implements JsonSerializable {
   };
 
   double calculateAverageScore(){
-    return (attendanceScore!*0.2 + midtermScore!*0.2 + finalScore!*0.6);
+    return (attendanceScore!*0.2 + midtermScore!*0.2 + finalScore!*0.3);
   }
 
   @override
   String toString() {
-    return '$id    $name            $age        $gender       $nameClass                  $attendanceScore                $midtermScore             $finalScore                  $averageScore';
+    return '$id    $name            $age        $gender       $nameClass                  $attendanceScore                $midtermScore             $finalScore              $averageScore';
   }
 }
 

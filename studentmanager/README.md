@@ -13,11 +13,7 @@
 
 ## Requirements
  Apply :
-<<<<<<< HEAD
 - Object - Oriented Programming (OOP)
-=======
-- Object -Oriented Programming (OOP)
->>>>>>> ce2bb91 (test git rebase two time)
 - Null-Safety in Dart
 - Asynchronous Programming: async & await
 - Error Handling with Futures and Try-Catch

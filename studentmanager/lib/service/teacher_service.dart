@@ -5,13 +5,13 @@ import 'package:studentmanager/models/teacher.dart';
 
 class TeacherService extends PersonSerive<Teacher> {
   final Map<int, Teacher> _teacherMap = {};
-   final fileHelper = FileHelper();
-   final inputHelper = InputHelper();
+  final fileHelper = FileHelper();
+  final inputHelper = InputHelper();
 
   // Add teacher to list
   @override
   void add() {
-    Teacher teacher =  inputHelper.inputTeacher();
+    Teacher teacher = inputHelper.inputTeacher();
     if (_teacherMap[teacher.id] != null) {
       print('Students already exist');
       return;
@@ -63,7 +63,10 @@ class TeacherService extends PersonSerive<Teacher> {
   }
 
   Future<void> readFile(String path) async {
-    await fileHelper.readFile<Teacher>(path, _teacherMap, (json) => Teacher.fromJson(json));
+    await fileHelper.readFile<Teacher>(
+      path,
+      _teacherMap,
+      (json) => Teacher.fromJson(json),
+    );
   }
-
 }

@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-class FileHelper{
-
+class FileHelper {
   // Save map of objects to a JSON file
   Future saveFile<T>(String path, Map<int, T> itemsMap) async {
     try {
@@ -13,7 +12,8 @@ class FileHelper{
       }
 
       // Convert each object to JSON
-      final jsonList =itemsMap.values.map((item) => (item as dynamic).toJson()).toList();
+      final jsonList =
+          itemsMap.values.map((item) => (item as dynamic).toJson()).toList();
 
       final jsonString = JsonEncoder.withIndent("  ").convert(jsonList);
       await file.writeAsString(jsonString);
@@ -25,7 +25,11 @@ class FileHelper{
   }
 
   // Read list of objects from a JSON file and fill into the provided map
-  Future<void> readFile<T>(String path,Map<int, T> targetMap,T Function(Map<String, dynamic>) fromJson) async {
+  Future<void> readFile<T>(
+    String path,
+    Map<int, T> targetMap,
+    T Function(Map<String, dynamic>) fromJson,
+  ) async {
     try {
       final file = File(path);
 
@@ -37,7 +41,6 @@ class FileHelper{
       final contents = await file.readAsString();
 
       if (contents.trim().isNotEmpty) {
-        
         final List<dynamic> jsonList = jsonDecode(contents);
 
         for (var item in jsonList) {
@@ -54,5 +57,4 @@ class FileHelper{
       print('Error while reading file: $e');
     }
   }
-  
 }

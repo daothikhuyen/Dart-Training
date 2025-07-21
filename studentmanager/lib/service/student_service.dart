@@ -3,7 +3,7 @@ import 'package:studentmanager/helpers/input_helper.dart';
 import 'package:studentmanager/service/person_service.dart';
 import 'package:studentmanager/models/student.dart';
 
-class StudentService extends PersonSerive<Student>{
+class StudentService extends PersonSerive<Student> {
   Map<int, Student> _studentMap = {};
   final fileHelper = FileHelper();
   final inputHelper = InputHelper();
@@ -12,7 +12,7 @@ class StudentService extends PersonSerive<Student>{
   void add() {
     Student student = inputHelper.inputStudent();
     student.averageScore = student.calculateAverageScore();
-    
+
     if (_studentMap[student.id] != null) {
       print('Students already exist');
       return;
@@ -28,7 +28,9 @@ class StudentService extends PersonSerive<Student>{
       print('No students yet');
     } else {
       print('-------------------Student List--------------------');
-      print('Id     Name            Age     Gender      Class           Attendance Score      Midterm Score       Final Score      Average Score');
+      print(
+        'Id     Name            Age     Gender      Class           Attendance Score      Midterm Score       Final Score      Average Score',
+      );
       _studentMap.forEach((id, student) {
         print(student.toString());
       });
@@ -54,8 +56,9 @@ class StudentService extends PersonSerive<Student>{
 
   void sortByScore() {
     var sortedEntries =
-        _studentMap.entries.toList()
-          ..sort(((a, b) => b.value.averageScore!.compareTo(a.value.averageScore!)));
+        _studentMap.entries.toList()..sort(
+          ((a, b) => b.value.averageScore!.compareTo(a.value.averageScore!)),
+        );
 
     Map<int, Student> sortedMap = {};
     for (var i in sortedEntries) {
@@ -64,7 +67,6 @@ class StudentService extends PersonSerive<Student>{
 
     _studentMap = sortedMap;
   }
-
 
   void goodStudent() {
     sortByScore();
@@ -87,6 +89,10 @@ class StudentService extends PersonSerive<Student>{
   }
 
   Future<void> readFile(String path) async {
-    await fileHelper.readFile<Student>(path,_studentMap,(json) => Student.fromJson(json),);
+    await fileHelper.readFile<Student>(
+      path,
+      _studentMap,
+      (json) => Student.fromJson(json),
+    );
   }
 }

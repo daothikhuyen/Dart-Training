@@ -20,7 +20,7 @@ class Student extends Person implements JsonSerializable {
     super.id,
   });
 
-//Factory constructor to create a student fron JSON
+  //Factory constructor to create a student fron JSON
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
       id: json['id'],
@@ -31,7 +31,7 @@ class Student extends Person implements JsonSerializable {
       attendanceScore: json['attendanceScore'],
       midtermScore: json['midtermScore'],
       finalScore: json['finalScore'],
-      averageScore: json['averageScore']
+      averageScore: json['averageScore'],
     );
   }
 
@@ -44,12 +44,12 @@ class Student extends Person implements JsonSerializable {
     'nameClass': nameClass,
     'attendanceScore': attendanceScore,
     'midtermScore': midtermScore,
-    'finalScore' : finalScore,
-    'averageScore': averageScore
+    'finalScore': finalScore,
+    'averageScore': averageScore,
   };
 
-  double calculateAverageScore(){
-    return (attendanceScore!*0.2 + midtermScore!*0.2 + finalScore!*0.3);
+  double calculateAverageScore() {
+    return (attendanceScore! * 0.2 + midtermScore! * 0.2 + finalScore! * 0.3);
   }
 
   @override
@@ -57,5 +57,3 @@ class Student extends Person implements JsonSerializable {
     return '$id    $name            $age        $gender       $nameClass                  $attendanceScore                $midtermScore             $finalScore              $averageScore';
   }
 }
-
-

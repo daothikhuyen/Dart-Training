@@ -82,9 +82,9 @@ Future<void> main(List<String> arguments) async {
         print("Enter student name to search:");
         String name = stdin.readLineSync()!;
         final choice2 = selectPersonType('Search');
-        if(choice2 == "1"){
+        if (choice2 == "1") {
           studentService.searchByName(name, studentService.itemsMap);
-        }else{
+        } else {
           teacherService.searchByName(name, teacherService.itemsMap);
         }
         break;

@@ -13,7 +13,7 @@
 
 ## Requirements
  Apply :
-- Object-Oriented Programming (OOP)
+- Object - Oriented Programming (OOP)
 - Null-Safety in Dart
 - Asynchronous Programming: async & await
 - Error Handling with Futures and Try-Catch

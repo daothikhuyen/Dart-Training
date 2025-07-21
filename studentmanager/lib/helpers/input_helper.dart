@@ -2,8 +2,7 @@ import 'package:studentmanager/models/models.dart';
 import 'package:studentmanager/models/teacher.dart';
 
 class InputHelper {
-
-  Map<String,dynamic> inputPerson(){
+  Map<String, dynamic> inputPerson() {
     while (true) {
       try {
         print('Enter id: ');
@@ -13,7 +12,7 @@ class InputHelper {
         print('Enter gender (female, male, other)');
         String gender = stdin.readLineSync()!;
         print('Enter age');
-        int age  = int.parse(stdin.readLineSync()!);
+        int age = int.parse(stdin.readLineSync()!);
 
         List<String> validGenders = ['female', 'male', 'other'];
         if (!validGenders.contains(gender.toLowerCase())) {
@@ -24,12 +23,7 @@ class InputHelper {
         if (name.isEmpty || gender.isEmpty) {
           print('Please do not leave blank');
         } else {
-          return {
-            'id' : id,
-            'name': name,
-            'gender': gender,
-            'age' : age
-          };
+          return {'id': id, 'name': name, 'gender': gender, 'age': age};
         }
       } on FormatException {
         print('Please enter in the correct format');
@@ -37,8 +31,8 @@ class InputHelper {
     }
   }
 
-  Student inputStudent(){
-    Map<String,dynamic> data = inputPerson();
+  Student inputStudent() {
+    Map<String, dynamic> data = inputPerson();
     while (true) {
       try {
         print('Enter name class');
@@ -50,26 +44,34 @@ class InputHelper {
 
         print('Enter attendance score');
         double attendanceScore = double.parse(stdin.readLineSync()!);
-        if(!checkScore(attendanceScore)) continue;
+        if (!checkScore(attendanceScore)) continue;
 
         print('Enter midterm score');
         double midtermScore = double.parse(stdin.readLineSync()!);
-        if(!checkScore(midtermScore)) continue;
+        if (!checkScore(midtermScore)) continue;
 
-         print('Enter final score');
+        print('Enter final score');
         double finalScore = double.parse(stdin.readLineSync()!);
-        if(!checkScore(finalScore)) continue;
+        if (!checkScore(finalScore)) continue;
 
-        return Student(id: data['id'], name: data['name'], gender: data['gender'],age: data['age'], nameClass: nameClass, attendanceScore: attendanceScore, midtermScore: midtermScore, finalScore: finalScore);
-
+        return Student(
+          id: data['id'],
+          name: data['name'],
+          gender: data['gender'],
+          age: data['age'],
+          nameClass: nameClass,
+          attendanceScore: attendanceScore,
+          midtermScore: midtermScore,
+          finalScore: finalScore,
+        );
       } on FormatException {
         print('Please enter in the correct format');
       }
     }
   }
 
-  Teacher inputTeacher(){
-    Map<String,dynamic> data = inputPerson();
+  Teacher inputTeacher() {
+    Map<String, dynamic> data = inputPerson();
 
     while (true) {
       try {
@@ -90,7 +92,15 @@ class InputHelper {
         if (studentTaught.isEmpty) {
           print('Please do not leave blank');
         } else {
-          return Teacher(id: data['id'], name: data['name'], gender: data['gender'],age: data['age'], numberPhone: numberPhone, experience: experience, studentTaught: studentTaught);
+          return Teacher(
+            id: data['id'],
+            name: data['name'],
+            gender: data['gender'],
+            age: data['age'],
+            numberPhone: numberPhone,
+            experience: experience,
+            studentTaught: studentTaught,
+          );
         }
       } on FormatException {
         print('Please enter in the correct format');
@@ -99,11 +109,11 @@ class InputHelper {
   }
 
   bool checkScore(double? score) {
-  if (score! < 0 || score > 10) {
-    print('Please enter a valid math score ( 0-10)');
-    return false;
-  }
+    if (score! < 0 || score > 10) {
+      print('Please enter a valid math score ( 0-10)');
+      return false;
+    }
 
-  return true;
-} 
+    return true;
+  }
 }
